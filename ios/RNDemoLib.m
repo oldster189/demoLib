@@ -4,14 +4,20 @@
 
 RCT_EXPORT_MODULE()
 
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
 }
 
-RCT_EXPORT_METHOD(sampleMethod:(NSString *)stringArgument numberParameter:(nonnull NSNumber *)numberArgument callback:(RCTResponseSenderBlock)callback)
+- (NSDictionary *)constantsToExport
 {
-    // TODO: Implement
-}
-
+    return @{
+             @"systemName": @"Codemobiles Co.,Ltd",
+    };
+} 
 @end
