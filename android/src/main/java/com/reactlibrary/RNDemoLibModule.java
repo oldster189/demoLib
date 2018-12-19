@@ -1,6 +1,8 @@
 package com.reactlibrary;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -32,9 +34,16 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
     public @Nullable
     Map<String, Object> getConstants() {
         HashMap<String, Object> constants = new HashMap<String, Object>();
+        constants.put("carrier", this.getCarrier());
         constants.put("SHORT", Toast.LENGTH_SHORT);
         constants.put("LONG", Toast.LENGTH_LONG);
         return constants;
+    }
+
+    @ReactMethod
+    public String getCarrier() {
+        TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+        return telMgr.getNetworkOperatorName();
     }
 
     @ReactMethod
@@ -43,22 +52,19 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void measureLayout(
-            int tag,
-            int ancestorTag,
+    public void add(
+            int number1,
+            int number2,
             Callback errorCallback,
             Callback successCallback) {
         try {
-            measureLayout(tag, ancestorTag, mMeasureBuffer);
-            float relativeX = PixelUtil.toDIPFromPixel(mMeasureBuffer[0]);
-            float relativeY = PixelUtil.toDIPFromPixel(mMeasureBuffer[1]);
-            float width = PixelUtil.toDIPFromPixel(mMeasureBuffer[2]);
-            float height = PixelUtil.toDIPFromPixel(mMeasureBuffer[3]);
-            successCallback.invoke(relativeX, relativeY, width, height);
-        } catch (IllegalViewOperationException e) {
+            int answer = number1 + number2;
+            successCallback.invoke(answer);
+        } catch (NumberFormatException e) {
             errorCallback.invoke(e.getMessage());
         }
     }
+
 
 
 }
