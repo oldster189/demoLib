@@ -44,6 +44,7 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
         return constants;
     }
 
+//
     private Boolean isEmulator() {
         return Build.FINGERPRINT.startsWith("generic")
                 || Build.FINGERPRINT.startsWith("unknown")
