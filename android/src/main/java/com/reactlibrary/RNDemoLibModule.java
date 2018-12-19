@@ -24,13 +24,19 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
     public String getName() {
         return "RNDemoLib";
     }
- 
-   @Override
-    public @Nullable Map<String, Object> getConstants() {
-    HashMap<String, Object> constants = new HashMap<String, Object>();
-            constants.put("SHORT", Toast.LENGTH_SHORT);
-            constants.put("LONG", Toast.LENGTH_LONG);
-    return constants;
-  }
+
+    @Override
+    public @Nullable
+    Map<String, Object> getConstants() {
+        HashMap<String, Object> constants = new HashMap<String, Object>();
+        constants.put("SHORT", Toast.LENGTH_SHORT);
+        constants.put("LONG", Toast.LENGTH_LONG);
+        return constants;
+    }
+
+    @ReactMethod
+    public void show(String message, int duration) {
+        Toast.makeText(getReactApplicationContext(), message, duration).show();
+    }
 
 }
