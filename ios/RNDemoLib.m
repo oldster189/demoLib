@@ -17,7 +17,23 @@ RCT_EXPORT_MODULE()
 - (NSDictionary *)constantsToExport
 {
     return @{
-             @"systemName": @"Codemobiles Co.,Ltd",
+             @"isEmulator": @"Codemobiles Co.,Ltd",
     };
-} 
+}
+
+- (BOOL) isEmulator
+{
+    struct utsname systemInfo;
+    
+    uname(&systemInfo);
+    
+    NSString* deviceId = [NSString stringWithCString:systemInfo.machine
+                                            encoding:NSUTF8StringEncoding];
+    if ([deviceId isEqualToString:@"i386"] || [deviceId isEqualToString:@"x86_64"] ) {
+        deviceId = [NSString stringWithFormat:@"%s", getenv("SIMULATOR_MODEL_IDENTIFIER")];
+        return YES;
+    } else {
+        return NO;
+    } 
+}
 @end
