@@ -1,10 +1,12 @@
 package com.reactlibrary;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -20,6 +22,8 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
     private final ReactApplicationContext reactContext;
     private final int[] mMeasureBuffer = new int[4];
 
+    private static final String E_ERROR = "E_ERROR";
+
     public RNDemoLibModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -34,16 +38,21 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
     public @Nullable
     Map<String, Object> getConstants() {
         HashMap<String, Object> constants = new HashMap<String, Object>();
-        constants.put("carrier", this.getCarrier());
+        constants.put("isEmulator", this.isEmulator());
         constants.put("SHORT", Toast.LENGTH_SHORT);
         constants.put("LONG", Toast.LENGTH_LONG);
         return constants;
     }
 
-    @ReactMethod
-    public String getCarrier() {
-        TelephonyManager telMgr = (TelephonyManager) this.reactContext.getSystemService(Context.TELEPHONY_SERVICE);
-        return telMgr.getNetworkOperatorName();
+    private Boolean isEmulator() {
+        return Build.FINGERPRINT.startsWith("generic")
+                || Build.FINGERPRINT.startsWith("unknown")
+                || Build.MODEL.contains("google_sdk")
+                || Build.MODEL.contains("Emulator")
+                || Build.MODEL.contains("Android SDK built for x86")
+                || Build.MANUFACTURER.contains("Genymotion")
+                || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
+                || "google_sdk".equals(Build.PRODUCT);
     }
 
     @ReactMethod
@@ -65,6 +74,18 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void subStract(
+            int number1,
+            int number2,
+            Promise promise) {
+        try {
+            int answer = number1 + number2;
+            promise.resolve(answer);
+        } catch (NumberFormatException e) {
+            promise.reject(E_ERROR, e);
+        }
+    }
 
 
 }
