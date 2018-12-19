@@ -18,7 +18,7 @@ RCT_EXPORT_MODULE()
 - (NSDictionary *)constantsToExport
 {
     return @{
-             @"isEmulator": @"Codemobiles Co.,Ltd",
+             @"isEmulator": @(self.isEmulator),
     };
 }
 
