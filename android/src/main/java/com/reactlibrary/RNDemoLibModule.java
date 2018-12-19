@@ -80,7 +80,7 @@ public class RNDemoLibModule extends ReactContextBaseJavaModule {
             int number2,
             Promise promise) {
         try {
-            int answer = number1 - number2;
+            int answer = number1 + number2;
             promise.resolve(answer);
         } catch (NumberFormatException e) {
             promise.reject(E_ERROR, e);
