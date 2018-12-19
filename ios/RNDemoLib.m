@@ -1,4 +1,5 @@
 #import "RNDemoLib.h"
+#import <sys/utsname.h>
 
 @implementation RNDemoLib
 
@@ -34,6 +35,6 @@ RCT_EXPORT_MODULE()
         return YES;
     } else {
         return NO;
-    } 
+    }
 }
 @end
