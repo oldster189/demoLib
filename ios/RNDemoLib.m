@@ -38,20 +38,20 @@ RCT_EXPORT_MODULE()
     }
 }
 
-RCT_EXPORT_METHOD(add:(int)number1 number2:(int)number2 callback:(RCTResponseSenderBlock)callback)
-{
-    int answer = number1 + number2;
-    callback(@[answer]);
+RCT_EXPORT_METHOD(findEvents:(RCTResponseSenderBlock)callback) {
+    NSArray *events;
+    events = [NSArray arrayWithObjects:  @"foo", @"bar", nil];
+    callback(@[[NSNull null], events]);
 }
 
-RCT_EXPORT_METHOD(subStract:(int)number1 number2:(int)number2 resolve(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
-{
-    @try {
-        int answer = number1 + number2;
-        resolve(answer)
-    } @catch (NSException *exception) {
-        reject(@"Error naja");
-    }
-}
+//RCT_EXPORT_METHOD(subStract:(int)number1 number2:(int)number2 resolve(RCTPromiseResolveBlock)resolve
+//                 rejecter:(RCTPromiseRejectBlock)reject)
+//{
+//    @try {
+//        int answer = number1 + number2;
+//        resolve(answer)
+//    } @catch (NSException *exception) {
+//        reject(@"Error naja");
+//    }
+//}
 @end
