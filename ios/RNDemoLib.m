@@ -18,7 +18,7 @@ RCT_EXPORT_MODULE()
 - (NSDictionary *)constantsToExport
 {
     return @{
-             @"isEmulator": @(self.isEmulator),
+        @"isEmulator": @(self.isEmulator),
     };
 }
 
@@ -36,5 +36,11 @@ RCT_EXPORT_MODULE()
     } else {
         return NO;
     }
+}
+
+RCT_EXPORT_METHOD(add:(RCTResponseSenderBlock)callback number1:(int)number1 number2:(int)number2)
+{
+    int answer = number1 + number2;
+    callback(@[[answer]]);
 }
 @end
