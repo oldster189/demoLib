@@ -1,0 +1,35 @@
+{
+  "name": "react-native-demo-lib",
+  "title": "React Native Demo Lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/undefined/react-native-demo-lib.git",
+    "baseUrl": "https://github.com/undefined/react-native-demo-lib"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "undefined",
+    "email": "undefined"
+  },
+  "license": "undefined",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "16.2.0",
+    "react-native": "^0.52.0",
+    "react-native-windows": "0.52.0"
+  },
+  "devDependencies": {
+    "react": "16.2.0",
+    "react-native": "^0.52.0",
+    "react-native-windows": "0.52.0"
+  }
+}
