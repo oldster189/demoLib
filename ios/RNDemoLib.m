@@ -18,8 +18,8 @@ RCT_EXPORT_MODULE()
 - (NSDictionary *)constantsToExport
 {
     return @{
-        @"isEmulator": @(self.isEmulator),
-    };
+             @"isEmulator": @(self.isEmulator),
+             };
 }
 
 - (BOOL) isEmulator
@@ -38,20 +38,20 @@ RCT_EXPORT_MODULE()
     }
 }
 
-RCT_EXPORT_METHOD(findEvents:(RCTResponseSenderBlock)callback) {
-    NSArray *events;
-    events = [NSArray arrayWithObjects:  @"foo", @"bar", nil];
-    callback(@[[NSNull null], events]);
+RCT_EXPORT_METHOD(add:(int)number1 number2:(int)number2 callback:(RCTResponseSenderBlock)callback ) {
+    callback(@[[NSNull null], @(number1 + number2)]);
 }
 
-//RCT_EXPORT_METHOD(subStract:(int)number1 number2:(int)number2 resolve(RCTPromiseResolveBlock)resolve
-//                 rejecter:(RCTPromiseRejectBlock)reject)
-//{
-//    @try {
-//        int answer = number1 + number2;
-//        resolve(answer)
-//    } @catch (NSException *exception) {
-//        reject(@"Error naja");
-//    }
-//}
+
+RCT_EXPORT_METHOD(subStract:(int)number1
+                  number2:(int)number2
+                  subStractWithResolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        resolve(@(number1 - number2));
+    } @catch (NSException *exception) {
+        reject(@"error", @"error description", exception);
+    }
+}
 @end
